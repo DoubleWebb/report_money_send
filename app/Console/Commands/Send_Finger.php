@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
+use App\Models\finger_send as finger_send;
 
 class Send_Finger extends Command
 {
@@ -11,7 +13,7 @@ class Send_Finger extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'send_finger';
 
     /**
      * The console command description.
@@ -37,6 +39,18 @@ class Send_Finger extends Command
      */
     public function handle()
     {
-        return 0;
+        $set_url = env('APP_API_URL') . 'api/receive/finger';
+        $set_team = env('TEAM_Send');
+        $get_finger = finger_send::where('sned_status', '1')->get();
+        foreach ($get_finger as $key => $row) {
+            $response = Http::get($set_url, [
+                'emp_code' => $row->emp_code,
+                'emp_team' => $set_team,
+                'punch_time' => $row->punch_time
+            ]);
+            $update_status = finger_send::find($row->finger_id);
+            $update_status->sned_status = '0';
+            $update_status->save();
+        }
     }
 }
