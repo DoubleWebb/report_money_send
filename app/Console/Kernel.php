@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        'App\Console\Commands\get_employee',
+        'App\Console\Commands\get_finger',
         'App\Console\Commands\send_employee',
         'App\Console\Commands\send_finger',
     ];
@@ -25,6 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('get_employee')->everyMinute();
+        $schedule->command('get_finger')->everyMinute();
         $schedule->command('send_employee')->everyMinute();
         $schedule->command('send_finger')->everyMinute();
     }
