@@ -51,11 +51,12 @@ class Get_Employee extends Command
                 $insert_emp->emp_code = $row->emp_pin;
                 $insert_emp->emp_firstname = $row->emp_firstname;
                 $insert_emp->emp_lastname = $row->emp_lastname;
+                $insert_emp->emp_status = $row->emp_active;
                 $insert_emp->save();            
             } else {
                 // มี Emp ในระบบ อัพเดต ชื่อ นามสกุล
                 employee_send::where('emp_code', $row->emp_pin)
-                    ->update(['emp_firstname' => $row->emp_firstname, 'emp_lastname' => $row->emp_lastname]);
+                    ->update(['emp_firstname' => $row->emp_firstname, 'emp_lastname' => $row->emp_lastname, 'emp_status' => $row->emp_active]);
             }
         }
     }

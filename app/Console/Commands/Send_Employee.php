@@ -48,6 +48,7 @@ class Send_Employee extends Command
                 'emp_team' => $set_team,
                 'emp_firstname' => $row->emp_firstname,
                 'emp_lastname' => $row->emp_lastname,
+                'emp_status' => $row->emp_status
             ]);
         }
     }

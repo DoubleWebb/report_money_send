@@ -13,7 +13,8 @@ class employee_send extends Model
     protected $fillable = [
         'emp_code', 
         'emp_firstname',
-        'emp_lastname'
+        'emp_lastname',
+        'emp_status'
     ];
 
     public $timestamps = false;
