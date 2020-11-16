@@ -42,7 +42,7 @@ class Get_Finger extends Command
      */
     public function handle()
     {
-        $get_punches = att_punches::whereDate('punch_time' , Carbon::now()->format('Y-m-d'))->get();
+        $get_punches = att_punches::whereDate('punch_time', '>=', Carbon::now()->subDays(7))->whereDate('punch_time' , '<=', Carbon::now()->format('Y-m-d'))->get();
         //$get_punches = att_punches::get();
         foreach ($get_punches as $key => $row) {
             $get_finger_send_count = finger_send::where('emp_code', $row->employee_id)->where('punch_time', $row->punch_time)->count();
